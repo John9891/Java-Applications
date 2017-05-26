@@ -3,6 +3,7 @@ package Bookshelf;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.JFrame;
 import javax.swing.JMenu;
@@ -22,9 +23,11 @@ public class SeleccionarAccion extends JFrame{
 	JMenuItem itemModificar;
 	JMenuItem itemMostrar;
 	JMenuItem itemEliminar;
+	ArrayList<Libro> listaLibros = new ArrayList<Libro>();
 	
 	public SeleccionarAccion(){			
 		
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(250,150,600,400);
 		setTitle("Mi marco principal");
 		lamina = new JPanel();		
@@ -67,24 +70,28 @@ public class SeleccionarAccion extends JFrame{
 			
 			switch (e.getActionCommand()) {
 			case "Inicio":
-				SeleccionarAccion.this.dispose();	
+				SeleccionarAccion.this.dispose();
+				//SeleccionarAccion.this.setVisible(false);
 				SeleccionarAccion marcoPrincipal = new SeleccionarAccion();
 				marcoPrincipal.setVisible(true);
 				break;		
-			case "Salir":
-				SeleccionarAccion.this.dispose();
+			case "Salir":				
+				System.exit(0);
 				break;				
 			case "Agregar libro":
-				SeleccionarAccion.this.dispose();	
-				AgregarLibro marcoAgregar = new AgregarLibro();
-				marcoAgregar.setVisible(true);
-				System.out.println("Quieres agregar un libro");				
+				SeleccionarAccion.this.setVisible(false);
+				//SeleccionarAccion.this.dispose();	
+				AgregarLibro marcoAgregar = new AgregarLibro(listaLibros);
+				marcoAgregar.setVisible(true);							
 				break;
 			case "Modificar libro":
 				System.out.println("Quieres modificar un libro");
 				break;
 			case "Mostrar libro":
-				System.out.println("Quieres mostrar un libro");
+				SeleccionarAccion.this.setVisible(false);
+				//SeleccionarAccion.this.dispose();
+				MostrarLibro marcoMostrar = new MostrarLibro(listaLibros);
+				marcoMostrar.setVisible(true);				
 				break;
 			case "Eliminar libro":
 				System.out.println("Quieres eliminar un libro");
